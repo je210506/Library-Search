@@ -1,8 +1,8 @@
 # Library-Search
 
-# Employee-Search
 
 ## Description
+This project is a MERN-stack application that integrates GraphQL with Apollo Server to replace RESTful API routes. It is a fully functioning Google Books API search engine that allows users to search for books and save them to their accounts. The app is built using a React front end, a MongoDB database, and a Node.js/Express.js server and API. The primary goal of this project is to improve performance and enhance user experience by transitioning from RESTful API to GraphQL.
 
 
 ## Badge
@@ -33,25 +33,27 @@ cd Library-Search
 npm install
 ```
 
-4. Create a ```.env``` File:
+4. Start the development server:
 
 ```
-VITE_GITHUB_TOKEN=your_github_personal_access_token
+npm run build
 ```
 
 5. Run the application locally:
 
 ```
-npm run dev
+npm run start:dev
 ```
 
-Your portfolio should now be running locally at ```http://localhost:5173``` (or a different port if specified).
+Your portfolio should now be running locally at ```http://localhost:3000``` (or a different port if specified).
 
 
 ## Usage 
-Naviagte to the site: https://employee-search-rkpu.onrender.com
+Navigate to the ```http://localhost:3000``` or to the rendered site: {insert here when rendered}
 
-To use the application, click the green button or red button on the different profiles, and the app will fetch user details from the GitHub API and display them in the browser. 
+Use the search bar to find books using the Google Books API.
+
+Sign up or log in to save books to your profile.
 
 
 ## License 
@@ -90,11 +92,6 @@ To test the application's functionality:
 
 -  Manual Testing
 
--  API rate Limit Hnadling
-    -If you reach GitHub's rate limit, verify that the app shows an appropriate warning message.
-
 
 ## Questions 
 If there's any additional questions I can answer for you, you can reach out to me at https://github.com/je210506 or [lalanne1011@gmail.com](mailto:lalanne1011@gmail.com}).
-
-![alt text](escreen.png)
