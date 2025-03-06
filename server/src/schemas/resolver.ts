@@ -80,13 +80,13 @@ const resolvers = {
     },
 
     // Save a book for the authenticated user
-    saveBook: async (_parent: any, { bookData }: BookArgs, context: any) => {
+    saveBook: async (_parent: any, args: BookArgs, context: any) => {
       if (!context.user) {
         throw new AuthenticationError('You need to be logged in to save a book!');
       }
       return await User.findByIdAndUpdate(
-        context.user._id, 
-        {$addtoset: {savedBooks: bookData}},
+        { _id: context.user._id }, 
+        {$addToSet: {savedBooks: args}},
         {new: true}
       );
       },
