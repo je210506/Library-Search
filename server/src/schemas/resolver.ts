@@ -1,9 +1,10 @@
+// import { userInfo } from 'node:os';
 import { User } from '../models/index.js';
 import { signToken, AuthenticationError } from '../services/auth.js';
 
 // Define types for the arguments
 interface AddUserArgs {
-  input: {
+  userData: {
     username: string;
     email: string;
     password: string;
@@ -20,12 +21,13 @@ interface UserArgs {
 }
 
 interface BookArgs {
+  bookData:  {
   bookId: string;
   title: string;
   authors: string[];
   description: string;
   image?: string;
-  link?: string;
+};
 }
 
 interface RemoveBookArgs {
@@ -55,9 +57,9 @@ const resolvers = {
 
   Mutation: {
     // Create a new user (sign up)
-    addUser: async (_parent: any, { input }: AddUserArgs) => {
-      const user = await User.create({ ...input });
-      const token = signToken(user.username, user.email, user._id);
+    addUser: async (_parent: any, { userData }: AddUserArgs) => {
+      const user = await User.create( userData );
+      const token = signToken(user.username, user.email, user.id);
       return { token, user };
     },
 
@@ -78,17 +80,17 @@ const resolvers = {
     },
 
     // Save a book for the authenticated user
-    saveBook: async (_parent: any, { bookId, title, authors, description, image, link }: BookArgs, context: any) => {
-      if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { savedBooks: { bookId, title, authors, description, image, link } } },
-          { new: true, runValidators: true }
-        );
-        return updatedUser;
+    saveBook: async (_parent: any, { bookData }: BookArgs, context: any) => {
+      if (!context.user) {
+        throw new AuthenticationError('You need to be logged in to save a book!');
       }
-      throw new AuthenticationError('You need to be logged in to save a book!');
-    },
+      return await User.findByIdAndUpdate(
+        context.user._id, 
+        {$addtoset: {savedBooks: bookData}},
+        {new: true}
+      );
+      },
+
 
     // Remove a saved book from the authenticated user's savedBooks
     removeBook: async (_parent: any, { bookId }: RemoveBookArgs, context: any) => {
