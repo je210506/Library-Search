@@ -49,7 +49,7 @@ Your portfolio should now be running locally at ```http://localhost:3000``` (or 
 
 
 ## Usage 
-Navigate to the ```http://localhost:3000``` or to the rendered site: {insert here when rendered}
+Navigate to the ```http://localhost:3000``` or to the rendered site: https://library-search.onrender.com
 
 Use the search bar to find books using the Google Books API.
 
